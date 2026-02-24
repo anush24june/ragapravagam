@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raga Pravagam</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='85' fill='%23FF7518' font-family='Inter, sans-serif' font-weight='900'>Ṡ</text></svg>">
-    <style>
+
+ <style>
         :root {
             --bg-color: #0f0f0f;
             --surface-color: #1a1a1a;
@@ -20,13 +21,28 @@
         html, body { height: 100vh; margin: 0; overflow: hidden; font-family: 'Inter', 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-primary); }
         body { padding: 20px; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
 
-        header { 
-            display: flex; justify-content: center; align-items: center; 
-            width: 100%; max-width: 1500px; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 15px; flex-shrink: 0;
-        }
-        h1 { color: var(--accent-color); margin: 0; font-size: 1.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; user-select: none; }
-        h1:hover { color: #ff9d5c; text-shadow: 0 0 15px var(--accent-color); }
-        h1:active { transform: scale(0.98); }
+		header { 
+			display: flex; 
+			justify-content: space-between; 
+			align-items: center; /* This centers both items vertically */
+			width: 100%; 
+			max-width: 1500px; 
+			margin-bottom: 20px; 
+			border-bottom: 1px solid var(--border-subtle); 
+			padding-bottom: 15px; 
+			flex-shrink: 0;
+		}
+
+h1 { 
+    margin: 0; 
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    user-select: none; 
+    display: flex; /* Ensures title and count align perfectly */
+    align-items: center;
+}
 
         .filter-section { width: 100%; max-width: 1500px; margin-bottom: 25px; flex-shrink: 0; }
         .button-row { display: flex; width: 100%; gap: 6px; align-items: center; }
@@ -141,6 +157,7 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
     border: none !important;
+    table-layout: fixed; /* CRITICAL: Forces columns to stay at fixed widths */
 }
 
 thead th { 
@@ -154,28 +171,54 @@ thead th {
     font-size: 0.75rem; 
     font-weight: 800; 
     text-transform: uppercase; 
-	border-bottom: 1px solid var(--border-subtle); /* Match the td thickness */
-    box-shadow: none; /* IMPORTANT: Remove the box-shadow as it creates a "ghost" second line */
+    /* This creates a permanent line that stays during scroll */
+    box-shadow: inset 0 -1px 0 var(--border-subtle); 
+    border: none;
+}
+
+/* Removes the top border from the first row so it doesn't touch the header divider */
+#janya-list tr:first-child td {
+    border-top: none !important;
 }
 
 td {  
     padding: 12px 15px;  
-    border-bottom: 1px solid var(--border-subtle); /* Use the variable for consistency */
-    font-size: 0.95rem;  
+    border-bottom: 1px solid var(--border-subtle); 
     vertical-align: middle;
     overflow: hidden;
+    white-space: nowrap; /* CRITICAL: Prevents wrapping to second line */
+    text-overflow: clip; 
 }
 
         tr:hover td { background-color: var(--hover-color); }
 
-		th:nth-child(1), td:nth-child(1) { width: 60px; text-align: center; } 
-		th:nth-child(2), td:nth-child(2) { width: 220px; } 
-		th:nth-child(3), td:nth-child(3) { width: auto; } 
-		th:nth-child(4), td:nth-child(4) { width: auto; }
+th:nth-child(1), td:nth-child(1) { width: 50px; text-align: center; } 
+th:nth-child(2), td:nth-child(2) { width: 22%; text-align: left; }
+th:nth-child(3), td:nth-child(3) { width: 36%; text-align: left; }
+th:nth-child(4), td:nth-child(4) { width: 36%; text-align: left; }
 
+.raga-name { 
+    font-weight: 700; 
+    color: var(--text-primary); 
+    text-transform: lowercase; 
+    /* Fluid font: Min 0.7rem, Scalable 1.1vw, Max 0.95rem */
+    font-size: clamp(0.7rem, 1.1vw, 0.95rem); 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.scale-box { 
+    font-family: 'Consolas', monospace; 
+    color: var(--text-secondary); 
+    letter-spacing: -0.5px; /* Tighter tracking to fit more swaras */
+    /* Fluid font: Min 0.65rem, Scalable 1.2vw, Max 1rem */
+    font-size: clamp(0.65rem, 1.2vw, 1rem); 
+}
 
-        .raga-name { font-weight: 700; color: var(--text-primary); text-transform: lowercase; }
-        .scale-box { font-family: 'Consolas', monospace; font-size: 1.1rem; color: var(--text-secondary); letter-spacing: 1px; }
+/* Remove the small-scale class as clamp handles it now */
+.scale-box.small-scale {
+    font-size: clamp(0.6rem, 1.1vw, 0.9rem);
+}
+
         .highlight { color: var(--accent-color); font-weight: bold; }
 
 .play-all-btn { 
@@ -271,12 +314,11 @@ td {
     overflow: hidden;
 }
 
-/* Restoring the Orange Subscripts */
-sub { 
-    font-size: 0.65rem; 
-    color: var(--accent-color); 
-    font-weight: 800; 
-    margin-left: 1px;
+sub {  
+    font-size: 0.6em; /* Using 'em' instead of 'rem' makes it scale with the parent font */
+    color: var(--accent-color);  
+    font-weight: 800;  
+    margin-left: 0.5px;
     vertical-align: sub;
 }
 
@@ -287,26 +329,49 @@ sub {
 }
 
 .header-total {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
     font-weight: 400;
-    margin-left: 10px;
+    margin-left: 15px;
     letter-spacing: 0;
-    text-transform: none; /* Keeps it from being all caps like the title */
+    text-transform: none;
+    vertical-align: middle;
+    pointer-events: none; /* Ensures the mouse doesn't interact with it */
+}
+
+.title-text {
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+}
+
+.title-text:hover { 
+    color: #ff9d5c; 
+    text-shadow: 0 0 15px var(--accent-color); 
+}
+
+.title-text:active { 
+    transform: scale(0.98); 
 }
 
 header { justify-content: space-between; } /* Ensure title and search are separated */
 
+.search-area {
+    display: flex;
+    align-items: center; /* Ensures count and input are aligned */
+}
+
 .search-area input {
-  background: #ffffff;
+    background: #ffffff;
     border: 1px solid var(--accent-color);
     color: #000000;
     padding: 7px 12px;
+    padding-right: 30px !important; /* Space for the 'X' button */
     border-radius: 6px;
     width: 220px;
     font-weight: 500;
     outline: none;
     transition: border-color 0.2s;
+    line-height: 1.2; /* Normalizes height across browsers */
 }
 
 .search-area input:focus {
@@ -421,10 +486,10 @@ input:checked + .slider:before {
     text-transform: uppercase;
 }
 
-/* Sub-toggle logic styling */
+/* Sub-toggle logic styling - restriction removed to allow independent use */
 .sub-toggle-disabled {
-    opacity: 0.2;
-    pointer-events: none; /* Prevents interaction */
+    opacity: 1;
+    pointer-events: auto;
 }
 
 
@@ -459,7 +524,11 @@ input:checked + .slider:before {
 <body>
 
 <header>
-    <h1 onclick="globalSoftReset()" style="cursor: pointer;">Raga Pravagam</h1>
+<h1>
+    <span class="title-text" onclick="globalSoftReset()" style="cursor: pointer;">Raga Pravagam</span>
+    <span id="total-display-count" class="header-total"># of raagas = 0</span>
+</h1>
+
     <div class="search-area" id="searchArea">
         <span id="resultCount" style="font-size: 0.75rem; color: var(--text-secondary); margin-right: 10px;"></span>
         <div style="position: relative; display: flex; align-items: center;">
@@ -550,7 +619,7 @@ function updateDisplay() {
     const clearBtn = document.getElementById('clearSearch');
     if (clearBtn) clearBtn.style.display = searchTerm ? "block" : "none";
 
-    // 1. Filter the Master List based on Search and Swaras
+    // 1. Filter the Master List based on Search, Swaras, and Symmetry
     let globallyFiltered = ragas;
     
     if (searchTerm) {
@@ -559,35 +628,34 @@ function updateDisplay() {
         );
     }
 
-    if (activeFilters.length > 0) {
-        globallyFiltered = globallyFiltered.filter(r => {
+    globallyFiltered = globallyFiltered.filter(r => {
+        // Check Swara Filters first
+        if (activeFilters.length > 0) {
+            const uniqueNotes = [...new Set(r.notes)];
             if (isExclusive) {
-                const uniqueNotes = [...new Set(r.notes)];
                 const isExactMatch = uniqueNotes.length === activeFilters.length && 
                                      uniqueNotes.every(note => activeFilters.includes(note));
-                
-                // If it's not an exact match of the selected swaras, fail immediately
                 if (!isExactMatch) return false;
-
-                // NEW: Check for ARO = AVA Symmetry
-				const isSymmetryRequired = window.isSymmetryRequired;
-                if (isSymmetryRequired) {
-                    const aroNotes = r.aro.match(/[SRGMPDNṠ]\d?/g) || [];
-                    const avaNotes = r.ava.match(/[SRGMPDNṠ]\d?/g) || [];
-                    
-                    // Create unique, sorted strings to compare the scale structures
-                    const aroSet = [...new Set(aroNotes)].sort().join(',');
-                    const avaSet = [...new Set(avaNotes)].sort().join(',');
-                    
-                    return aroSet === avaSet;
-                }
-                
-                return true;
+            } else {
+                // Inclusive mode: must contain at least the selected notes
+                if (!activeFilters.every(sw => r.notes.includes(sw))) return false;
             }
-            return activeFilters.every(sw => r.notes.includes(sw));
-        });
-    }
+        }
 
+        // Check Symmetry (Independent of isExclusive)
+        if (window.isSymmetryRequired) {
+            const aroNotes = r.aro.match(/[SRGMPDNṠ]\d?/g) || [];
+            const avaNotes = r.ava.match(/[SRGMPDNṠ]\d?/g) || [];
+            
+            const aroSet = [...new Set(aroNotes)].sort().join(',');
+            const avaSet = [...new Set(avaNotes)].sort().join(',');
+            
+            if (aroSet !== avaSet) return false;
+        }
+        
+        return true;
+    });
+        
     // 2. Update Sidebar Items (Remains the same)
     const sidebarItems = document.querySelectorAll('.mk-item');
     sidebarItems.forEach(item => {
@@ -629,13 +697,22 @@ function updateDisplay() {
         return a.name.localeCompare(b.name);
     });
 
-    // 5. Render rows
-    const showMelaNumber = isFiltering; 
+const showMelaNumber = isFiltering && !activeMK; 
+    
+    tableBody.innerHTML = ""; // Ensure table is cleared before rendering (already handled at top but good for safety)
+    
     tableDisplayList.forEach(r => {
         const cleanMela = r.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
         const isParent = r.name.trim().toUpperCase() === cleanMela;
         renderRow(r, tableBody, isParent, showMelaNumber);
     });
+    
+
+    // 6. Update the header count (MOVE THIS OUTSIDE THE LOOP)
+    const totalCountSpan = document.getElementById('total-display-count');
+    if (totalCountSpan) {
+        totalCountSpan.innerText = `# of raagas = ${tableDisplayList.length}`;
+    }
 }
 
 function renderRow(r, container, isParent, showMelaNumber) {
@@ -677,56 +754,36 @@ function initFilters() {
     swaraContainer.innerHTML = "";
     modeContainer.innerHTML = "";
 
-    // 1. EXACT MATCH Button (Now in modeContainer/Sidebar)
+    // 1. EXACT MATCH Button
     const exactBtn = document.createElement('div');
     exactBtn.className = 'letter-btn mode-btn';
     exactBtn.id = 'mode-toggle-btn';
     exactBtn.innerText = 'EXACT MATCH';
-	exactBtn.onclick = () => {
-    // 1. Toggle state
-    isExclusive = !isExclusive;
-    exactBtn.classList.toggle('active', isExclusive);
-    
-    // 2. Clear current selections (The Soft Reset part)
-    activeMK = null;
-    activeFilters = [];
-    window.isSymmetryRequired = false;
-    
-    // 3. Update UI Visuals
-    document.querySelectorAll('.mk-item, .letter-btn:not(.mode-btn)').forEach(i => i.classList.remove('active'));
-    
-    const aroAvaBtn = document.getElementById('aro-ava-btn');
-    if (!isExclusive) {
-        aroAvaBtn.classList.add('sub-toggle-disabled');
-        aroAvaBtn.classList.remove('active');
-    } else {
-        aroAvaBtn.classList.remove('sub-toggle-disabled');
-    }
-    
-    const swaraRow = document.getElementById('filter-container');
-    isExclusive ? swaraRow.classList.add('exclusive-active') : swaraRow.classList.remove('exclusive-active');
-    
-    // 4. Stop audio and refresh list
-    stopAllPlayback();
-    updateDisplay();
-};
-
+    exactBtn.onclick = () => {
+        isExclusive = !isExclusive;
+        exactBtn.classList.toggle('active', isExclusive);
+        
+        const swaraRow = document.getElementById('filter-container');
+        isExclusive ? swaraRow.classList.add('exclusive-active') : swaraRow.classList.remove('exclusive-active');
+        
+        // Removed the logic that forced ARO=AVA to reset or disable here
+        updateDisplay();
+    };
     modeContainer.appendChild(exactBtn);
 
-    // 2. ARO = AVA Button (Now in modeContainer/Sidebar)
+    // 2. ARO = AVA Button (Now fully independent)
     const aroAvaBtn = document.createElement('div');
-    aroAvaBtn.className = 'letter-btn mode-btn sub-toggle-disabled';
+    aroAvaBtn.className = 'letter-btn mode-btn'; 
     aroAvaBtn.id = 'aro-ava-btn';
     aroAvaBtn.innerText = 'ARO = AVA';
     aroAvaBtn.onclick = () => {
-        if (!isExclusive) return;
         window.isSymmetryRequired = !window.isSymmetryRequired; 
         aroAvaBtn.classList.toggle('active', window.isSymmetryRequired);
         updateDisplay();
     };
     modeContainer.appendChild(aroAvaBtn);
 
-    // 3. Swara Buttons (Remains in swaraContainer/Main)
+    // 3. Swara Buttons
     const notes = ['S','R1','R2','R3','G1','G2','G3','M1','M2','P','D1','D2','D3','N1','N2','N3','Ṡ'];
     notes.forEach(s => {
         const b = document.createElement('div');
@@ -745,7 +802,7 @@ function initFilters() {
         swaraContainer.appendChild(b);
     });
 
-    // 4. RESET Button (Remains in swaraContainer/Main)
+    // 4. RESET Button
     const rb = document.createElement('div');
     rb.className = 'letter-btn reset-btn-style';
     rb.innerText = 'RESET';
@@ -829,7 +886,7 @@ function stopAllPlayback() {
         activeGainNodes = [];
     }
 
-    function startDrone() {
+function startDrone() {
         const master = audioCtx.createGain();
         const filter = audioCtx.createBiquadFilter();
         filter.type = 'lowpass';
@@ -851,7 +908,7 @@ function stopAllPlayback() {
         droneGain = master;
     }
 
-    function playFullRaagam(aroStr, avaStr, btn) {
+function playFullRaagam(aroStr, avaStr, btn) {
         if (btn.classList.contains('playing')) { stopAllPlayback(); return; }
         stopAllPlayback();
         if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -866,20 +923,20 @@ function stopAllPlayback() {
         let delay = 1000;
 
         const schedule = (swara, isLast, isAva) => {
-            const t = setTimeout(() => {
-                if (myGen !== currentGeneration) return;
-                const duration = isLast ? 1.0 : 0.48;
-                const gain = playNote(swara, duration, isLast);
-                if (gain) activeGainNodes.push(gain);
+		const t = setTimeout(() => {
+			if (myGen !== currentGeneration) return;
+			const duration = isLast ? 1.0 : 0.48;
+			const gain = playNote(swara, duration, isLast);
+			if (gain) activeGainNodes.push(gain);
 
-                if (isAva && isLast) {
-                    setTimeout(() => {
-                        if (myGen === currentGeneration) stopAllPlayback();
-                    }, 2000);
-                }
-            }, delay);
-            activeTimers.push(t);
-        };
+			if (isAva && isLast) {
+				setTimeout(() => {
+					if (myGen === currentGeneration) stopAllPlayback();
+				}, 2000);
+			}
+		}, delay);
+		activeTimers.push(t);
+	};
 
         aroN.forEach((s, i) => {
             const isL = i === aroN.length - 1;
@@ -895,7 +952,7 @@ function stopAllPlayback() {
         });
     }
 
-    function playNote(swara, duration, isFinalNote) {
+function playNote(swara, duration, isFinalNote) {
         const freq = swaraFreqs[swara.toUpperCase()] || swaraFreqs[swara];
         if (!freq) return null;
 
