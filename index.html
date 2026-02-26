@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Raga Pravagam</title>
+    <title>Raagangal_16</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='85' fill='%23FF7518' font-family='Inter, sans-serif' font-weight='900'>Ṡ</text></svg>">
 
  <style>
@@ -24,7 +24,7 @@
 		header { 
 			display: flex; 
 			justify-content: space-between; 
-			align-items: center; /* This centers both items vertically */
+			align-items: center;
 			width: 100%; 
 			max-width: 1500px; 
 			margin-bottom: 20px; 
@@ -518,6 +518,15 @@ input:checked + .slider:before {
     color: white !important;
 }
 
+.mk-item.active.empty-mela {
+    color: #ff4444; /* Red color */
+    box-shadow: inset 4px 0 0 #ff4444;
+}
+
+.mk-item.empty-mela .mela-count {
+    color: #ff4444;
+}
+
         
     </style>
 </head>
@@ -525,7 +534,7 @@ input:checked + .slider:before {
 
 <header>
 <h1>
-    <span class="title-text" onclick="globalSoftReset()" style="cursor: pointer;">Raga Pravagam</span>
+    <span class="title-text" onclick="globalSoftReset()" style="cursor: pointer;">Raagangal_16</span>
     <span id="total-display-count" class="header-total"># of raagas = 0</span>
 </h1>
 
@@ -590,21 +599,34 @@ input:checked + .slider:before {
     
     
 function globalSoftReset() {
-    // 1. Only clear the swara filters
+    // 1. Clear Selections only
     activeFilters = [];
+    activeMK = null;
     
-    // 2. Stop any audio currently playing
+    // Note: isExclusive and window.isSymmetryRequired are NOT changed here
+    // so your toggle settings persist.
+
+    // 2. Stop audio
     stopAllPlayback();
 
-    // 3. Clear 'active' class ONLY from swara buttons (not the mode-btns)
-    // We target buttons that do NOT have the .mode-btn class
+    // 3. UI Cleanup: Clear ONLY swara filters, NOT mode buttons
     document.querySelectorAll('.letter-btn:not(.mode-btn)').forEach(i => {
         i.classList.remove('active');
     });
-    
-    // Note: We do NOT reset activeMK, isExclusive, or isSymmetryRequired here
-    // so your Melakarta and Toggle states remain persistent.
 
+    // 4. UI Cleanup: Sidebar Items
+    document.querySelectorAll('.mk-item').forEach(i => {
+        i.classList.remove('active');
+        i.classList.remove('empty-mela');
+    });
+
+    // 5. Reset Search (Optional - keep if you want search cleared on reset)
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.value = "";
+    const clearBtn = document.getElementById('clearSearch');
+    if (clearBtn) clearBtn.style.display = "none";
+
+    // 6. Refresh
     updateDisplay();
 }
 
@@ -656,14 +678,28 @@ function updateDisplay() {
         return true;
     });
         
-    // 2. Update Sidebar Items (Remains the same)
+// 2. Update Sidebar Items
     const sidebarItems = document.querySelectorAll('.mk-item');
     sidebarItems.forEach(item => {
         const melaText = item.getAttribute('data-mela');
         const melaCount = globallyFiltered.filter(r => r.mela.toUpperCase() === melaText).length;
+        
         item.innerHTML = `<span>${melaText}</span><span class="mela-count">(${melaCount})</span>`;
         
-        if (isExclusive && activeFilters.length === 0) {
+        // Add or remove the 'empty-mela' class based on count
+        if (melaCount === 0) {
+            item.classList.add('empty-mela');
+        } else {
+            item.classList.remove('empty-mela');
+        }
+
+        // VISIBILITY LOGIC:
+        // Always show the item if it is the activeMK (even if count is 0)
+        if (activeMK === melaText) {
+            item.style.display = "flex";
+        } 
+        // Otherwise, apply your existing filtering rules
+        else if (isExclusive && activeFilters.length === 0) {
             item.style.display = "none"; 
         } else if (activeFilters.length > 0 || searchTerm.length > 0) {
             item.style.display = (melaCount === 0) ? "none" : "flex"; 
@@ -671,7 +707,7 @@ function updateDisplay() {
             item.style.display = "flex"; 
         }
     });
-
+    
     // 3. Determine Table List
     let tableDisplayList = [];
     const isFiltering = activeFilters.length > 0 || searchTerm.length > 0;
