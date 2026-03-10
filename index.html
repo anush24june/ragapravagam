@@ -753,17 +753,23 @@ globallyFiltered = globallyFiltered.filter(r => {
         }
     }
 
-    // 2. Symmetry Check (Updated to handle Unicode dots correctly)
-    if (window.isSymmetryRequired) {
-        const noteRegex = /[SRGMPDNṠṆḌṘĠṂṀṖ]\u0323?\d?/g;
-        const aroNotes = r.aro.match(noteRegex) || [];
-        const avaNotes = r.ava.match(noteRegex) || [];
-        
-        const aroSet = [...new Set(aroNotes)].sort().join(',');
-        const avaSet = [...new Set(avaNotes)].sort().join(',');
-        
-        if (aroSet !== avaSet) return false;
-    }
+	// 2. Symmetry Check (Strict Sequence Mirroring)
+	if (window.isSymmetryRequired) {
+		const noteRegex = /[SRGMPDNṠṆḌṘĠṂṀṖ]\u0323?\d?/g;
+		const aroNotes = r.aro.match(noteRegex) || [];
+		const avaNotes = r.ava.match(noteRegex) || [];
+		
+		// 1. Length check: If they don't have the same number of notes, they can't be a mirror.
+		if (aroNotes.length !== avaNotes.length) return false;
+
+		// 2. Mirror check: Compare Aro notes to Ava notes in reverse.
+		// We use a copy of avaNotes to reverse so we don't mutate the original object.
+		const avaReversed = [...avaNotes].reverse();
+		
+		const isStrictMirror = aroNotes.every((note, index) => note === avaReversed[index]);
+		
+		if (!isStrictMirror) return false;
+}
     
     return true;
 
@@ -6682,3 +6688,4 @@ function handleSearch(event) {
 </script>
 </body>
 </html>
+
