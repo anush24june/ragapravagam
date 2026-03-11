@@ -33,16 +33,16 @@
 			flex-shrink: 0;
 		}
 
-h1 { 
-    margin: 0; 
-    font-size: 1.8rem; 
-    font-weight: 800; 
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
-    user-select: none; 
-    display: flex; /* Ensures title and count align perfectly */
-    align-items: center;
-}
+		h1 { 
+			margin: 0; 
+			font-size: 1.8rem; 
+			font-weight: 800; 
+			text-transform: uppercase; 
+			letter-spacing: 1px; 
+			user-select: none; 
+			display: flex; /* Ensures title and count align perfectly */
+			align-items: center;
+		}
 
         .filter-section { width: 100%; max-width: 1500px; margin-bottom: 25px; flex-shrink: 0; }
         .button-row { display: flex; width: 100%; gap: 6px; align-items: center; }
@@ -71,461 +71,461 @@ h1 {
         input:checked + .slider { background-color: var(--accent-color); border-color: var(--accent-color); }
         input:checked + .slider:before { transform: translateX(18px); background-color: white; }
 
-.view-container { 
-    width: 100%; 
-    max-width: 1500px; 
-    flex: 1; 
-    display: flex; 
-    gap: 20px; 
-    min-height: 0; /* CRITICAL: allows children to be smaller than content */
-    overflow: hidden; 
-}
+		.view-container { 
+			width: 100%; 
+			max-width: 1500px; 
+			flex: 1; 
+			display: flex; 
+			gap: 20px; 
+			min-height: 0; /* CRITICAL: allows children to be smaller than content */
+			overflow: hidden; 
+		}
 
-#sidebar {
-    flex: 0 0 280px;
-    background: var(--surface-color);
-    border: 1px solid var(--border-subtle); /* Standard 1px */
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-#sidebar-header { 
-    padding: 15px; 
-    font-size: 0.75rem; 
-    font-weight: 800; 
-    color: var(--accent-color); 
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
-    border-bottom: 1px solid var(--border-subtle); 
-    background: #151515; 
-    flex-shrink: 0;
-}
+		#sidebar {
+			flex: 0 0 280px;
+			background: var(--surface-color);
+			border: 1px solid var(--border-subtle); /* Standard 1px */
+			border-radius: 12px;
+			display: flex;
+			flex-direction: column;
+			overflow: hidden;
+		}
+		#sidebar-header { 
+			padding: 15px; 
+			font-size: 0.75rem; 
+			font-weight: 800; 
+			color: var(--accent-color); 
+			text-transform: uppercase; 
+			letter-spacing: 1px; 
+			border-bottom: 1px solid var(--border-subtle); 
+			background: #151515; 
+			flex-shrink: 0;
+		}
 
-#content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    background: var(--surface-color);
-    border: 1px solid var(--border-subtle); /* This is your main frame */
-    border-radius: 12px;
-    overflow: hidden; /* This clips the internal children to the curves */
-}
+		#content {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			min-height: 0;
+			background: var(--surface-color);
+			border: 1px solid var(--border-subtle); /* This is your main frame */
+			border-radius: 12px;
+			overflow: hidden; /* This clips the internal children to the curves */
+		}
 
         #sidebar-header:hover { color: #ff9d5c; background: #1e1e1e; text-shadow: 0 0 8px rgba(255, 117, 24, 0.4); }
         #sidebar-header:active { transform: scale(0.98); }
 
         #mk-list { flex: 1; overflow-y: auto; }
 
-.mk-item { 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 15px; 
-    cursor: pointer; 
-    border-bottom: 1px solid #222; 
-    font-size: 0.85rem; 
-    color: var(--text-secondary); 
-    text-transform: uppercase;
-    font-weight: 700; 
-    transition: all 0.2s ease;
-}   
+		.mk-item { 
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 12px 15px; 
+			cursor: pointer; 
+			border-bottom: 1px solid #222; 
+			font-size: 0.85rem; 
+			color: var(--text-secondary); 
+			text-transform: uppercase;
+			font-weight: 700; 
+			transition: all 0.2s ease;
+		}   
 
-.mk-item:hover {
-    background: var(--hover-color);
-    color: var(--text-primary);
-    padding-left: 20px;
-    /* Adds the orange outline effect */
-    outline: 1px solid var(--accent-color);
-    outline-offset: -1px; /* Keeps the outline inside the box to prevent layout shifting */
-    box-shadow: 0 0 8px rgba(255, 117, 24, 0.3); /* Adds a subtle glow like the swarams */
-}
-
-.mk-item.active { 
-    background: #222; 
-    color: var(--accent-color); 
-    font-weight: 800; 
-    /* Use an inset box-shadow instead of a border to prevent shifting */
-    box-shadow: inset 4px 0 0 var(--accent-color); 
-}
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-spacing: 0;
-    border: none !important;
-    table-layout: fixed; /* CRITICAL: Forces columns to stay at fixed widths */
-}
-
-thead th { 
-    position: sticky; 
-    top: 0; 
-    z-index: 20; 
-    background: var(--surface-color); 
-    color: var(--accent-color); 
-    padding: 14px 15px; 
-    text-align: left; 
-    font-size: 0.75rem; 
-    font-weight: 800; 
-    text-transform: uppercase; 
-    /* This creates a permanent line that stays during scroll */
-    box-shadow: inset 0 -1px 0 var(--border-subtle); 
-    border: none;
-}
-
-/* Removes the top border from the first row so it doesn't touch the header divider */
-#janya-list tr:first-child td {
-    border-top: none !important;
-}
-
-td {  
-    padding: 12px 15px;  
-    border-bottom: 1px solid var(--border-subtle); 
-    vertical-align: middle;
-    overflow: hidden;
-    white-space: nowrap; /* CRITICAL: Prevents wrapping to second line */
-    text-overflow: clip; 
-}
-
-        tr:hover td { background-color: var(--hover-color); }
-
-th:nth-child(1), td:nth-child(1) { width: 50px; text-align: center; } 
-th:nth-child(2), td:nth-child(2) { width: 22%; text-align: left; }
-th:nth-child(3), td:nth-child(3) { width: 36%; text-align: left; }
-th:nth-child(4), td:nth-child(4) { width: 36%; text-align: left; }
-
-.raga-name { 
-    font-weight: 700; 
-    color: var(--text-primary); 
-    text-transform: lowercase; 
-    /* Fluid font: Min 0.7rem, Scalable 1.1vw, Max 0.95rem */
-    font-size: clamp(0.7rem, 1.1vw, 0.95rem); 
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.scale-box { 
-    font-family: 'Consolas', monospace; 
-    color: var(--text-secondary); 
-    letter-spacing: -0.5px; /* Tighter tracking to fit more swaras */
-    /* Fluid font: Min 0.65rem, Scalable 1.2vw, Max 1rem */
-    font-size: clamp(0.65rem, 1.2vw, 1rem); 
-}
-
-/* Remove the small-scale class as clamp handles it now */
-.scale-box.small-scale {
-    font-size: clamp(0.6rem, 1.1vw, 0.9rem);
-}
-
-        .highlight { color: var(--accent-color); font-weight: bold; }
-
-.play-all-btn { 
-    display: inline-flex; 
-    align-items: center; 
-    justify-content: center; 
-    width: 26px;
-    height: 26px; 
-    border-radius: 50%; 
-    background: transparent; 
-    border: 1px solid var(--accent-color); 
-    color: var(--accent-color); 
-    cursor: pointer; 
-    padding: 0;
-    transition: all 0.15s ease-in-out;
-    outline: none;
-}
-		
-		.play-all-btn svg {
-			width: 18px;   /* Increased from 10px */
-			height: 18px;
-			transition: transform 0.2s ease;
+		.mk-item:hover {
+			background: var(--hover-color);
+			color: var(--text-primary);
+			padding-left: 20px;
+			/* Adds the orange outline effect */
+			outline: 1px solid var(--accent-color);
+			outline-offset: -1px; /* Keeps the outline inside the box to prevent layout shifting */
+			box-shadow: 0 0 8px rgba(255, 117, 24, 0.3); /* Adds a subtle glow like the swarams */
 		}
-		
-.play-all-btn:hover {
-    background: var(--accent-color); /* Fills the circle */
-    color: var(--bg-color);          /* Icon turns dark for contrast */
-}
-		
-.play-all-btn.playing { 
-    background: var(--accent-color) !important; 
-    color: white !important; 
-    border-color: white !important;
-}
+
+		.mk-item.active { 
+			background: #222; 
+			color: var(--accent-color); 
+			font-weight: 800; 
+			/* Use an inset box-shadow instead of a border to prevent shifting */
+			box-shadow: inset 4px 0 0 var(--accent-color); 
+		}
+
+				@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			border-spacing: 0;
+			border: none !important;
+			table-layout: fixed; /* CRITICAL: Forces columns to stay at fixed widths */
+		}
+
+		thead th { 
+			position: sticky; 
+			top: 0; 
+			z-index: 20; 
+			background: var(--surface-color); 
+			color: var(--accent-color); 
+			padding: 14px 15px; 
+			text-align: left; 
+			font-size: 0.75rem; 
+			font-weight: 800; 
+			text-transform: uppercase; 
+			/* This creates a permanent line that stays during scroll */
+			box-shadow: inset 0 -1px 0 var(--border-subtle); 
+			border: none;
+		}
+
+		/* Removes the top border from the first row so it doesn't touch the header divider */
+		#janya-list tr:first-child td {
+			border-top: none !important;
+		}
+
+		td {  
+			padding: 12px 15px;  
+			border-bottom: 1px solid var(--border-subtle); 
+			vertical-align: middle;
+			overflow: hidden;
+			white-space: nowrap; /* CRITICAL: Prevents wrapping to second line */
+			text-overflow: clip; 
+		}
+
+				tr:hover td { background-color: var(--hover-color); }
+
+		th:nth-child(1), td:nth-child(1) { width: 50px; text-align: center; } 
+		th:nth-child(2), td:nth-child(2) { width: 22%; text-align: left; }
+		th:nth-child(3), td:nth-child(3) { width: 36%; text-align: left; }
+		th:nth-child(4), td:nth-child(4) { width: 36%; text-align: left; }
+
+		.raga-name { 
+			font-weight: 700; 
+			color: var(--text-primary); 
+			text-transform: lowercase; 
+			/* Fluid font: Min 0.7rem, Scalable 1.1vw, Max 0.95rem */
+			font-size: clamp(0.7rem, 1.1vw, 0.95rem); 
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.scale-box { 
+			font-family: 'Consolas', monospace; 
+			color: var(--text-secondary); 
+			letter-spacing: -0.5px; /* Tighter tracking to fit more swaras */
+			/* Fluid font: Min 0.65rem, Scalable 1.2vw, Max 1rem */
+			font-size: clamp(0.65rem, 1.2vw, 1rem); 
+		}
+
+		/* Remove the small-scale class as clamp handles it now */
+		.scale-box.small-scale {
+			font-size: clamp(0.6rem, 1.1vw, 0.9rem);
+		}
+
+				.highlight { color: var(--accent-color); font-weight: bold; }
+
+		.play-all-btn { 
+			display: inline-flex; 
+			align-items: center; 
+			justify-content: center; 
+			width: 26px;
+			height: 26px; 
+			border-radius: 50%; 
+			background: transparent; 
+			border: 1px solid var(--accent-color); 
+			color: var(--accent-color); 
+			cursor: pointer; 
+			padding: 0;
+			transition: all 0.15s ease-in-out;
+			outline: none;
+		}
+				
+				.play-all-btn svg {
+					width: 18px;   /* Increased from 10px */
+					height: 18px;
+					transition: transform 0.2s ease;
+				}
+				
+		.play-all-btn:hover {
+			background: var(--accent-color); /* Fills the circle */
+			color: var(--bg-color);          /* Icon turns dark for contrast */
+		}
+				
+		.play-all-btn.playing { 
+			background: var(--accent-color) !important; 
+			color: white !important; 
+			border-color: white !important;
+		}
 
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
-        
-.mela-count {
-    font-size: 0.8rem;         /* Slightly larger for readability */
-    font-weight: 600;       /* Extra bold as requested */
-    color: var(--accent-color);
-    margin-left: 15px;      /* Creates space between name and count */
-    flex-shrink: 0;         /* Prevents the count from being squished */
-}
+				::-webkit-scrollbar { width: 6px; }
+				::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+				::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
+				
+		.mela-count {
+			font-size: 0.8rem;         /* Slightly larger for readability */
+			font-weight: 600;       /* Extra bold as requested */
+			color: var(--accent-color);
+			margin-left: 15px;      /* Creates space between name and count */
+			flex-shrink: 0;         /* Prevents the count from being squished */
+		}
 
-#content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0; /* CRITICAL: allows table-wrapper to scroll */
-}
+		#content {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			min-height: 0; /* CRITICAL: allows table-wrapper to scroll */
+		}
 
-#table-wrapper {
-    flex: 1;
-    overflow-y: auto;
-    background: transparent; /* Let the parent color show through */
-    border: none !important;  /* Strip the double border */
-    border-radius: 0;
-}
+		#table-wrapper {
+			flex: 1;
+			overflow-y: auto;
+			background: transparent; /* Let the parent color show through */
+			border: none !important;  /* Strip the double border */
+			border-radius: 0;
+		}
 
-.scale-box { 
-    font-family: 'Consolas', monospace; 
-    font-size: 0.95rem; /* Slightly smaller base font */
-    color: var(--text-secondary); 
-    letter-spacing: 0.5px; 
-}
+		.scale-box { 
+			font-family: 'Consolas', monospace; 
+			font-size: 0.95rem; /* Slightly smaller base font */
+			color: var(--text-secondary); 
+			letter-spacing: 0.5px; 
+		}
 
-/* New class for long complex scales */
-.scale-box.small-scale {
-    font-size: 0.82rem;
-    letter-spacing: 0;
-}
+		/* New class for long complex scales */
+		.scale-box.small-scale {
+			font-size: 0.82rem;
+			letter-spacing: 0;
+		}
 
-/* Allow raga names to wrap so they don't push the table wider */
-.raga-name { 
-    font-weight: 700; 
-    color: var(--text-primary); 
-    text-transform: lowercase; 
-    white-space: normal; /* Allows wrapping */
-    line-height: 1.2;
-    max-width: 200px; /* Constraints the name column */
-}
+		/* Allow raga names to wrap so they don't push the table wider */
+		.raga-name { 
+			font-weight: 700; 
+			color: var(--text-primary); 
+			text-transform: lowercase; 
+			white-space: normal; /* Allows wrapping */
+			line-height: 1.2;
+			max-width: 200px; /* Constraints the name column */
+		}
 
-/* Ensure table cells handle overflow gracefully */
-td { 
-    padding: 12px 15px; 
-    border-bottom: 1px solid #252525; 
-    font-size: 0.95rem; 
-    vertical-align: middle;
-    overflow: hidden;
-}
+		/* Ensure table cells handle overflow gracefully */
+		td { 
+			padding: 12px 15px; 
+			border-bottom: 1px solid #252525; 
+			font-size: 0.95rem; 
+			vertical-align: middle;
+			overflow: hidden;
+		}
 
-sub {  
-    font-size: 0.6em; /* Using 'em' instead of 'rem' makes it scale with the parent font */
-    color: var(--accent-color);  
-    font-weight: 800;  
-    margin-left: 0.5px;
-    vertical-align: sub;
-}
+		sub {  
+			font-size: 0.6em; /* Using 'em' instead of 'rem' makes it scale with the parent font */
+			color: var(--accent-color);  
+			font-weight: 800;  
+			margin-left: 0.5px;
+			vertical-align: sub;
+		}
 
-/* Ensure the highlight class (for filters) doesn't conflict */
-.highlight { 
-    color: var(--accent-color) !important; 
-    font-weight: 900; 
-}
+		/* Ensure the highlight class (for filters) doesn't conflict */
+		.highlight { 
+			color: var(--accent-color) !important; 
+			font-weight: 900; 
+		}
 
-.header-total {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-weight: 400;
-    margin-left: 15px;
-    letter-spacing: 0;
-    text-transform: none;
-    vertical-align: middle;
-    pointer-events: none; /* Ensures the mouse doesn't interact with it */
-}
+		.header-total {
+			font-size: 0.85rem;
+			color: var(--text-secondary);
+			font-weight: 600;
+			margin-right: 15px;
+			white-space: nowrap;
+			display: inline-block;
+			min-width: 140px; 
+			text-align: right; 
+		}
 
-.title-text {
-    color: var(--accent-color);
-    transition: all 0.3s ease;
-}
+		.title-text {
+			color: var(--accent-color);
+			transition: all 0.3s ease;
+		}
 
-.title-text:hover { 
-    color: #ff9d5c; 
-    text-shadow: 0 0 15px var(--accent-color); 
-}
+		.title-text:hover { 
+			color: #ff9d5c; 
+			text-shadow: 0 0 15px var(--accent-color); 
+		}
 
-.title-text:active { 
-    transform: scale(0.98); 
-}
+		.title-text:active { 
+			transform: scale(0.98); 
+		}
 
-header { justify-content: space-between; } /* Ensure title and search are separated */
+		header { justify-content: space-between; } /* Ensure title and search are separated */
 
-.search-area {
-    display: flex;
-    align-items: center; /* Ensures count and input are aligned */
-}
+		.search-area {
+			display: flex;
+			align-items: center;
+		}
 
-.search-area input {
-    background: #ffffff;
-    border: 1px solid var(--accent-color);
-    color: #000000;
-    padding: 7px 12px;
-    padding-right: 30px !important; /* Space for the 'X' button */
-    border-radius: 6px;
-    width: 220px;
-    font-weight: 500;
-    outline: none;
-    transition: border-color 0.2s;
-    line-height: 1.2; /* Normalizes height across browsers */
-}
+		.search-area input {
+			background: #ffffff;
+			border: 1px solid var(--accent-color);
+			color: #000000;
+			padding: 7px 12px;
+			padding-right: 30px !important; /* Space for the 'X' button */
+			border-radius: 6px;
+			width: 220px;
+			font-weight: 500;
+			outline: none;
+			transition: border-color 0.2s;
+			line-height: 1.2; /* Normalizes height across browsers */
+		}
 
-.search-area input:focus {
-    border-color: var(--accent-color);
-}
+		.search-area input:focus {
+			border-color: var(--accent-color);
+		}
 
-.search-area input::placeholder {
-    color: #000000;
-    opacity: 1;
-}
+		.search-area input::placeholder {
+			color: #000000;
+			opacity: 1;
+		}
 
-.search-area input {
-    padding-right: 30px !important;
-}
+		.search-area input {
+			padding-right: 30px !important;
+		}
 
-#clearSearch:hover {
-    color: var(--accent-color) !important;
-}
+		#clearSearch:hover {
+			color: var(--accent-color) !important;
+		}
 
-.swara-filter-num {
-    color: var(--accent-color) !important; /* Forces the orange */
-    font-size: 0.60rem; /* Smaller than the letter */
-    font-weight: 800;
-    position: relative;
-    top: 0.4em; /* Manually pushes it down to subscript position */
-    margin-left: 1px;
-    line-height: 0; /* Prevents the subscript from increasing the button height */
-}
+		.swara-filter-num {
+			color: var(--accent-color) !important; /* Forces the orange */
+			font-size: 0.60rem; /* Smaller than the letter */
+			font-weight: 800;
+			position: relative;
+			top: 0.4em; /* Manually pushes it down to subscript position */
+			margin-left: 1px;
+			line-height: 0; /* Prevents the subscript from increasing the button height */
+		}
 
-.letter-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    vertical-align: middle;
-}
+		.letter-btn {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			vertical-align: middle;
+		}
 
-/* This targets the subscript ONLY when the button is in the active state */
-.letter-btn.active .swara-filter-num {
-    color: inherit !important; /* Forces the number to match the button text color */
-    opacity: 1;
-}
+		/* This targets the subscript ONLY when the button is in the active state */
+		.letter-btn.active .swara-filter-num {
+			color: inherit !important; /* Forces the number to match the button text color */
+			opacity: 1;
+		}
 
-/* Ensure the number is orange by default when NOT active */
-.swara-filter-num {
-    color: var(--accent-color);
-    font-size: 0.55rem;
-    font-weight: 800;
-    position: relative;
-    top: 0.4em;
-    margin-left: 1px;
-    line-height: 0;
-}
+		/* Ensure the number is orange by default when NOT active */
+		.swara-filter-num {
+			color: var(--accent-color);
+			font-size: 0.55rem;
+			font-weight: 800;
+			position: relative;
+			top: 0.4em;
+			margin-left: 1px;
+			line-height: 0;
+		}
 
-/* Sidebar Toggle Area */
-.toggle-group {
-    padding: 0 12px;
-    height: 44px; /* Fixed height for alignment */
-    background: #151515;
-    border-bottom: 1px solid var(--border-subtle);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 12px;
-    box-sizing: border-box;
-}
+		/* Sidebar Toggle Area */
+		.toggle-group {
+			padding: 0 12px;
+			height: 44px; /* Fixed height for alignment */
+			background: #151515;
+			border-bottom: 1px solid var(--border-subtle);
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 12px;
+			box-sizing: border-box;
+		}
 
-.table-controls {
-    background: #151515;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    padding: 0 12px;
-    border-bottom: 1px solid var(--border-subtle); /* Separates buttons from table */
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    box-sizing: border-box;
-}
+		.table-controls {
+			background: #151515;
+			height: 44px;
+			display: flex;
+			align-items: center;
+			padding: 0 12px;
+			border-bottom: 1px solid var(--border-subtle); /* Separates buttons from table */
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			box-sizing: border-box;
+		}
 
-/* Polished Hardware Toggles */
-.toggle-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-}
+		/* Polished Hardware Toggles */
+		.toggle-item {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			cursor: pointer;
+		}
 
-.toggle-item .switch {
-    width: 28px;
-    height: 14px;
-    flex-shrink: 0;
-}
+		.toggle-item .switch {
+			width: 28px;
+			height: 14px;
+			flex-shrink: 0;
+		}
 
-.toggle-item .slider:before {
-    height: 10px;
-    width: 10px;
-    left: 2px;
-    bottom: 2px;
-    background-color: #555;
-}
+		.toggle-item .slider:before {
+			height: 10px;
+			width: 10px;
+			left: 2px;
+			bottom: 2px;
+			background-color: #555;
+		}
 
-input:checked + .slider:before {
-    transform: translateX(14px);
-    background-color: white;
-}
+		input:checked + .slider:before {
+			transform: translateX(14px);
+			background-color: white;
+		}
 
-.toggle-item .switch-label {
-    font-size: 0.6rem;
-    font-weight: 800;
-    color: var(--text-secondary);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-}
+		.toggle-item .switch-label {
+			font-size: 0.6rem;
+			font-weight: 800;
+			color: var(--text-secondary);
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+		}
 
-/* Sub-toggle logic styling - restriction removed to allow independent use */
-.sub-toggle-disabled {
-    opacity: 1;
-    pointer-events: auto;
-}
+		/* Sub-toggle logic styling - restriction removed to allow independent use */
+		.sub-toggle-disabled {
+			opacity: 1;
+			pointer-events: auto;
+		}
 
 
-/* Swaram buttons layout */
-.button-row {
-    display: flex;
-    gap: 5px;
-    width: 100%;
-}
+		/* Swaram buttons layout */
+		.button-row {
+			display: flex;
+			gap: 5px;
+			width: 100%;
+		}
 
-.letter-btn {
-    padding: 6px 0;
-    font-size: 0.7rem;
-    flex: 1;
-}
+		.letter-btn {
+			padding: 6px 0;
+			font-size: 0.7rem;
+			flex: 1;
+		}
 
-.mode-btn {
-    background: #222;
-    border-color: white;
-    flex: 1.5;
-}
+		.mode-btn {
+			background: #222;
+			border-color: white;
+			flex: 1.5;
+		}
 
-.mode-btn.active {
-    background: var(--accent-color) !important;
-    border-color: var(--accent-color) !important;
-    color: white !important;
-}
+		.mode-btn.active {
+			background: var(--accent-color) !important;
+			border-color: var(--accent-color) !important;
+			color: white !important;
+		}
 
-.mk-item.active.empty-mela {
-    color: #ff4444; /* Red color */
-    box-shadow: inset 4px 0 0 #ff4444;
-}
+		.mk-item.active.empty-mela {
+			color: #ff4444; /* Red color */
+			box-shadow: inset 4px 0 0 #ff4444;
+		}
 
-.mk-item.empty-mela .mela-count {
-    color: #ff4444;
-}
+		.mk-item.empty-mela .mela-count {
+			color: #ff4444;
+		}
 
         
     </style>
@@ -533,12 +533,12 @@ input:checked + .slider:before {
 <body>
 
 <header>
-<h1>
-    <span class="title-text" onclick="globalSoftReset()" style="cursor: pointer;">Raga Pravagam</span>
-    <span id="total-display-count" class="header-total"># of raagas = 0</span>
-</h1>
+    <h1>
+        <span class="title-text" onclick="globalSoftReset()" style="cursor: pointer;">Raga Pravagam</span>
+        </h1>
 
     <div class="search-area" id="searchArea">
+        <span id="total-display-count" class="header-total">0 of 5,530 raagas displayed </span>
         <span id="resultCount" style="font-size: 0.75rem; color: var(--text-secondary); margin-right: 10px;"></span>
         <div style="position: relative; display: flex; align-items: center;">
             <input type="text" id="searchInput" oninput="updateDisplay()" placeholder="Search raagam...">
@@ -579,7 +579,7 @@ input:checked + .slider:before {
 
 <script>
     // --- STATE ---
-    let ragas = [], uniqueMela = [], activeFilters = [], activeMK = null, isExclusive = false;
+	let ragas = [], uniqueMela = [], activeFilters = [], activeMKs = [], isExclusive = false;
     window.isSymmetryRequired = false;
     
     // Audio State
@@ -632,28 +632,20 @@ const getBaseSwara = (s) => s.replace(/[\u0323\u1E60\u1E58\u1E20\u1E42\u1E40\u1E
 
     
 function globalSoftReset() {
-    // 1. Clear Selections only
     activeFilters = [];
-    activeMK = null;
-    
-    // Note: isExclusive and window.isSymmetryRequired are NOT changed here
-    // so your toggle settings persist.
-
-    // 2. Stop audio
+    activeMKs = [];
+        
     stopAllPlayback();
 
-    // 3. UI Cleanup: Clear ONLY swara filters, NOT mode buttons
     document.querySelectorAll('.letter-btn:not(.mode-btn)').forEach(i => {
         i.classList.remove('active');
     });
 
-    // 4. UI Cleanup: Sidebar Items
     document.querySelectorAll('.mk-item').forEach(i => {
         i.classList.remove('active');
         i.classList.remove('empty-mela');
     });
 
-    // 5. Reset Search (Optional - keep if you want search cleared on reset)
     const searchInput = document.getElementById('searchInput');
     if (searchInput) searchInput.value = "";
     const clearBtn = document.getElementById('clearSearch');
@@ -792,59 +784,77 @@ globallyFiltered = globallyFiltered.filter(r => {
 
         // VISIBILITY LOGIC:
         // Always show the item if it is the activeMK (even if count is 0)
-        if (activeMK === melaText) {
-            item.style.display = "flex";
-        } 
-        // Otherwise, apply your existing filtering rules
-        else if (isExclusive && activeFilters.length === 0) {
-            item.style.display = "none"; 
-        } else if (activeFilters.length > 0 || searchTerm.length > 0) {
-            item.style.display = (melaCount === 0) ? "none" : "flex"; 
-        } else {
-            item.style.display = "flex"; 
-        }
+		if (activeMKs.includes(melaText)) {
+				// If it's one of our selected MKs, always show it
+				item.style.display = "flex";
+			} 
+			else if (isExclusive && activeFilters.length === 0) {
+				// Exact match mode with no swaras = hide others
+				item.style.display = "none"; 
+			} else if (activeFilters.length > 0 || searchTerm.length > 0) {
+				// If searching/filtering, hide if count is 0
+				item.style.display = (melaCount === 0) ? "none" : "flex"; 
+			} else {
+				// Default state
+				item.style.display = "flex"; 
+			}
     });
     
-    // 3. Determine Table List
-    let tableDisplayList = [];
-    const isFiltering = activeFilters.length > 0 || searchTerm.length > 0;
+	// --- 3. Determine Table List ---
+	let tableDisplayList = [];
+	const isFiltering = activeFilters.length > 0 || searchTerm.length > 0;
 
-    if (activeMK) {
-        tableDisplayList = globallyFiltered.filter(r => r.mela.toUpperCase() === activeMK);
-    } else if (isFiltering) {
-        tableDisplayList = globallyFiltered;
-    } else {
-        tableDisplayList = []; 
-    }
+	if (activeMKs.length > 0) {
+		// Show ragas that belong to ANY of the selected Melakartas
+		tableDisplayList = globallyFiltered.filter(r => activeMKs.includes(r.mela.toUpperCase()));
+	} else if (isFiltering) {
+		tableDisplayList = globallyFiltered;
+	} else {
+		tableDisplayList = []; 
+	}
 
-    // 4. Force Parent to Top (Remains the same)
-    tableDisplayList.sort((a, b) => {
-        if (activeMK) {
-            const cleanMelaA = a.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
-            const cleanMelaB = b.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
-            const cleanNameA = a.name.trim().toUpperCase();
-            const cleanNameB = b.name.trim().toUpperCase();
-            if (cleanNameA === cleanMelaA && cleanNameB !== cleanMelaB) return -1;
-            if (cleanNameA !== cleanMelaA && cleanNameB === cleanMelaB) return 1;
-        }
-        return a.name.localeCompare(b.name);
-    });
+	// --- 4. Sorting Logic (MKs First by Num, then Janyas A-Z) ---
+		tableDisplayList.sort((a, b) => {
+			// 1. Identify Parents
+			const cleanNameA = a.name.trim().toUpperCase();
+			const cleanNameB = b.name.trim().toUpperCase();
+			const cleanMelaA = a.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
+			const cleanMelaB = b.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
+			
+			const isParentA = cleanNameA === cleanMelaA;
+			const isParentB = cleanNameB === cleanMelaB;
 
-const showMelaNumber = isFiltering && !activeMK; 
-    
-    tableBody.innerHTML = ""; // Ensure table is cleared before rendering (already handled at top but good for safety)
-    
-    tableDisplayList.forEach(r => {
-        const cleanMela = r.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
-        const isParent = r.name.trim().toUpperCase() === cleanMela;
-        renderRow(r, tableBody, isParent, showMelaNumber);
-    });
-    
+			// RULE 1: If one is a Parent and the other isn't, Parent always wins (moves to top)
+			if (isParentA && !isParentB) return -1;
+			if (!isParentA && isParentB) return 1;
 
-    // 6. Update the header count (MOVE THIS OUTSIDE THE LOOP)
-    const totalCountSpan = document.getElementById('total-display-count');
-    if (totalCountSpan) {
-        totalCountSpan.innerText = `# of raagas = ${tableDisplayList.length}`;
+			// RULE 2: If BOTH are Parents, sort them by Melakarta Number
+			if (isParentA && isParentB) {
+				const numA = parseInt(a.mela.match(/^\d+/) || 0);
+				const numB = parseInt(b.mela.match(/^\d+/) || 0);
+				return numA - numB;
+			}
+
+			// RULE 3: If BOTH are Janyas, sort them alphabetically by name
+			return cleanNameA.localeCompare(cleanNameB);
+		});	
+		
+		// --- 5. Determine if we show the superscript ---
+		// UPDATED: Show if swaras are filtered OR if more than one MK is selected
+		const showMelaNumber = activeFilters.length > 0 || activeMKs.length > 1; 
+			
+		tableBody.innerHTML = ""; 
+			
+		tableDisplayList.forEach(r => {
+			const cleanMela = r.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
+			const isParent = r.name.trim().toUpperCase() === cleanMela;
+			renderRow(r, tableBody, isParent, showMelaNumber);
+		});
+		
+		// 6. Update the header count (MOVE THIS OUTSIDE THE LOOP)
+		const totalCountSpan = document.getElementById('total-display-count');
+		if (totalCountSpan) {
+		totalCountSpan.innerText = `${tableDisplayList.length.toLocaleString()} of ${ragas.length.toLocaleString()} raagas displayed`;
     }
 }
 
@@ -887,7 +897,19 @@ function initFilters() {
     swaraContainer.innerHTML = "";
     modeContainer.innerHTML = "";
 
-    // 1. EXACT MATCH Button
+    // 1. ARO = AVA Button (Now fully independent)
+    const aroAvaBtn = document.createElement('div');
+    aroAvaBtn.className = 'letter-btn mode-btn'; 
+    aroAvaBtn.id = 'aro-ava-btn';
+    aroAvaBtn.innerText = 'ARO = AVA';
+    aroAvaBtn.onclick = () => {
+        window.isSymmetryRequired = !window.isSymmetryRequired; 
+        aroAvaBtn.classList.toggle('active', window.isSymmetryRequired);
+        updateDisplay();
+    };
+    modeContainer.appendChild(aroAvaBtn);
+
+    // 2. EXACT MATCH Button
     const exactBtn = document.createElement('div');
     exactBtn.className = 'letter-btn mode-btn';
     exactBtn.id = 'mode-toggle-btn';
@@ -903,18 +925,6 @@ function initFilters() {
         updateDisplay();
     };
     modeContainer.appendChild(exactBtn);
-
-    // 2. ARO = AVA Button (Now fully independent)
-    const aroAvaBtn = document.createElement('div');
-    aroAvaBtn.className = 'letter-btn mode-btn'; 
-    aroAvaBtn.id = 'aro-ava-btn';
-    aroAvaBtn.innerText = 'ARO = AVA';
-    aroAvaBtn.onclick = () => {
-        window.isSymmetryRequired = !window.isSymmetryRequired; 
-        aroAvaBtn.classList.toggle('active', window.isSymmetryRequired);
-        updateDisplay();
-    };
-    modeContainer.appendChild(aroAvaBtn);
 
     // 3. Swara Buttons
     const notes = ['S','R1','R2','R3','G1','G2','G3','M1','M2','P','D1','D2','D3','N1','N2','N3'];
@@ -971,20 +981,20 @@ function loadData() {
         
         d.innerHTML = `<span>${m}</span><span class="mela-count">(${initialCount})</span>`;
         
-			d.onclick = () => { 
-            // Check if we are clicking the one that is already active
-            if (activeMK === m) {
-                // UNCLICK: Reset everything
-                activeMK = null;
-                d.classList.remove('active');
-            } else {
-                // CLICK: Set new active item
-                document.querySelectorAll('.mk-item').forEach(i => i.classList.remove('active')); 
-                d.classList.add('active'); 
-                activeMK = m; 
-            }
-            updateDisplay(); 
-        };
+		d.onclick = () => { 
+			const index = activeMKs.indexOf(m);
+			
+			if (index > -1) {
+				// If already selected, remove it
+				activeMKs.splice(index, 1);
+				d.classList.remove('active');
+			} else {
+				// If not selected, add it
+				activeMKs.push(m);
+				d.classList.add('active'); 
+			}
+			updateDisplay(); 
+		};
         
         list.appendChild(d);
     });
@@ -6688,4 +6698,3 @@ function handleSearch(event) {
 </script>
 </body>
 </html>
-
