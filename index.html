@@ -1031,8 +1031,7 @@ function initFilters() {
     vakraBtn.className = 'letter-btn mode-btn';
     vakraBtn.id = 'vakra-btn';
     vakraBtn.innerText = 'VAKRAM';
-    vakraBtn.style.fontSize = '0.65rem';
-    
+      
 	vakraBtn.onclick = () => {
     // Cycle: 0 (OFF) -> 1 (VAKRAM) -> 2 (RIJU)
     window.vakraState = (window.vakraState + 1) % 3;
