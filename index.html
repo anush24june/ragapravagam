@@ -7,6 +7,14 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' ry='20' fill='%23FF7518'/><text y='75' x='50' font-size='80' fill='white' font-family='Courier, monospace' font-weight='900' text-anchor='middle'>Ṡ</text></svg>">
 
  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       STYLES
+       Variables & Reset → Header → Filter Bar → Layout (Sidebar/Content) →
+       Table → Raga Name & Scale → Play Button → Toggles & Controls →
+       Utility (scrollbar, animations)
+    ═══════════════════════════════════════════════════════════════════ */
+
+    /* ── VARIABLES & RESET ──────────────────────────────────────────── */
         :root {
             --bg-color: #0f0f0f;
             --surface-color: #1a1a1a;
@@ -18,6 +26,8 @@
             --border-subtle: #2d2d2d;
         }
 
+
+    /* ── HEADER ─────────────────────────────────────────────────────── */
         html, body { height: 100vh; margin: 0; overflow: hidden; font-family: 'Inter', 'Segoe UI', sans-serif; background-color: var(--bg-color); color: var(--text-primary); }
         body { padding: 20px; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; }
 
@@ -44,15 +54,17 @@
 			align-items: center;
 		}
 
+
+    /* ── FILTER BAR ─────────────────────────────────────────────────── */
         .filter-section { width: 100%; max-width: 1500px; margin-bottom: 25px; flex-shrink: 0; }
         .button-row { display: flex; width: 100%; gap: 6px; align-items: center; }
 
         .letter-btn {
             background: #222; border: 1px solid var(--border-subtle); color: var(--text-secondary);
-            padding: 10px 0; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.75rem; transition: 0.2s; flex: 1; text-align: center;
-			user-select: none;           /* Prevents the highlight */
-			-webkit-user-select: none;   /* Safari support */
-	}
+            padding: 6px 0; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 0.7rem; transition: 0.2s; flex: 1; text-align: center;
+            display: inline-flex; align-items: center; justify-content: center; vertical-align: middle;
+            user-select: none; -webkit-user-select: none;
+        }
         .letter-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
         .letter-btn.active { background: var(--accent-color); color: white; border-color: var(--accent-color); opacity: 1 !important; }
         .letter-btn.active:hover { background-color: #bf360c !important; border-color: #bf360c !important;}
@@ -74,6 +86,8 @@
         input:checked + .slider { background-color: var(--accent-color); border-color: var(--accent-color); }
         input:checked + .slider:before { transform: translateX(18px); background-color: white; }
 
+
+    /* ── LAYOUT: VIEW CONTAINER, SIDEBAR, CONTENT ──────────────────── */
 		.view-container { 
 			width: 100%; 
 			max-width: 1500px; 
@@ -159,6 +173,8 @@
 
 				@keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
 
+
+    /* ── TABLE ──────────────────────────────────────────────────────── */
 		table {
 			width: 100%;
 			border-collapse: collapse;
@@ -191,13 +207,14 @@
 			border-top: none !important;
 		}
 
-		td {  
-			padding: 12px 15px;  
-			border-bottom: 1px solid var(--border-subtle); 
+		td {
+			padding: 12px 15px;
+			border-bottom: 1px solid #252525;
+			font-size: 0.95rem;
 			vertical-align: middle;
 			overflow: hidden;
-			white-space: nowrap; /* CRITICAL: Prevents wrapping to second line */
-			text-overflow: clip; 
+			white-space: nowrap;
+			text-overflow: clip;
 		}
 
 				tr:hover td { background-color: var(--hover-color); }
@@ -207,30 +224,13 @@
 		th:nth-child(3), td:nth-child(3) { width: 36%; text-align: left; }
 		th:nth-child(4), td:nth-child(4) { width: 36%; text-align: left; }
 
-		.raga-name { 
-			font-weight: 700; 
-			color: var(--text-primary); 
-			text-transform: lowercase; 
-			/* Fluid font: Min 0.7rem, Scalable 1.1vw, Max 0.95rem */
-			font-size: clamp(0.7rem, 1.1vw, 0.95rem); 
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-		.scale-box { 
-			font-family: 'Consolas', monospace; 
-			color: var(--text-secondary); 
-			letter-spacing: -0.5px; /* Tighter tracking to fit more swaras */
-			/* Fluid font: Min 0.65rem, Scalable 1.2vw, Max 1rem */
-			font-size: clamp(0.65rem, 1.2vw, 1rem); 
-		}
 
 		/* Remove the small-scale class as clamp handles it now */
-		.scale-box.small-scale {
-			font-size: clamp(0.6rem, 1.1vw, 0.9rem);
-		}
 
 				.highlight { color: var(--accent-color); font-weight: bold; }
 
+
+    /* ── RAGA NAME & SCALE BOX ──────────────────────────────────────── */
 		.play-all-btn { 
 			display: inline-flex; 
 			align-items: center; 
@@ -249,6 +249,8 @@
 				
 				.play-all-btn svg {
 					width: 18px;   /* Increased from 10px */
+
+    /* ── PLAY BUTTON ────────────────────────────────────────────────── */
 					height: 18px;
 					transition: transform 0.2s ease;
 				}
@@ -265,6 +267,8 @@
 		}
 
 
+
+    /* ── UTILITY (scrollbar, animations) ───────────────────────────── */
 				::-webkit-scrollbar { width: 6px; }
 				::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
 				::-webkit-scrollbar-thumb:hover { background: var(--accent-color); }
@@ -277,12 +281,6 @@
 			flex-shrink: 0;         /* Prevents the count from being squished */
 		}
 
-		#content {
-			flex: 1;
-			display: flex;
-			flex-direction: column;
-			min-height: 0; /* CRITICAL: allows table-wrapper to scroll */
-		}
 
 		#table-wrapper {
 			flex: 1;
@@ -306,22 +304,16 @@
 		}
 
 		/* Allow raga names to wrap so they don't push the table wider */
-		.raga-name { 
-			font-weight: 700; 
-			color: var(--text-primary); 
-			text-transform: lowercase; 
-			white-space: normal; /* Allows wrapping */
+		.raga-name {
+			font-weight: 700;
+			color: var(--text-primary);
+			text-transform: lowercase;
+			font-size: clamp(0.7rem, 1.1vw, 0.95rem);
+			white-space: normal;
 			line-height: 1.2;
-			max-width: 200px; /* Constraints the name column */
-		}
-
-		/* Ensure table cells handle overflow gracefully */
-		td { 
-			padding: 12px 15px; 
-			border-bottom: 1px solid #252525; 
-			font-size: 0.95rem; 
-			vertical-align: middle;
+			max-width: 200px;
 			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 		sub {  
@@ -342,7 +334,7 @@
 			font-size: 0.85rem;
 			color: var(--text-secondary);
 			font-weight: 600;
-			margin-right: 15px;
+			margin-right: 10px;
 			white-space: nowrap;
 			display: inline-block;
 			min-width: 140px; 
@@ -395,9 +387,6 @@
 			opacity: 1;
 		}
 
-		.search-area input {
-			padding-right: 30px !important;
-		}
 
 		#clearSearch:hover {
 			color: var(--accent-color) !important;
@@ -413,12 +402,6 @@
 			line-height: 0; /* Prevents the subscript from increasing the button height */
 		}
 
-		.letter-btn {
-			display: inline-flex;
-			align-items: center;
-			justify-content: center;
-			vertical-align: middle;
-		}
 
 		/* This targets the subscript ONLY when the button is in the active state */
 		.letter-btn.active .swara-filter-num {
@@ -427,17 +410,10 @@
 		}
 
 		/* Ensure the number is orange by default when NOT active */
-		.swara-filter-num {
-			color: var(--accent-color);
-			font-size: 0.55rem;
-			font-weight: 800;
-			position: relative;
-			top: 0.4em;
-			margin-left: 1px;
-			line-height: 0;
-		}
 
 		/* Sidebar Toggle Area */
+
+    /* ── TOGGLES & CONTROLS ─────────────────────────────────────────── */
 		.toggle-group {
 			padding: 0 12px;
 			height: 44px; /* Fixed height for alignment */
@@ -512,11 +488,6 @@
 			width: 100%;
 		}
 
-		.letter-btn {
-			padding: 6px 0;
-			font-size: 0.7rem;
-			flex: 1;
-		}
 
 		.mode-btn {
 			background: #222;
@@ -540,6 +511,8 @@
 		}
 		
 		/* Medium Forest Green - Permanent Theme */
+
+    /* ── EXACT / RESET BUTTON STYLES ───────────────────────────────── */
 		.exact-btn-style { 
 			background: #142214; 
 			border-color: #2a442a; 
@@ -589,6 +562,78 @@
 		.letter-btn:not(.exact-btn-style):not(.reset-btn-style) {
 			flex: 1; 
 }
+
+		/* ── REVERSE BUTTON ─────────────────────────────────────────────── */
+		#reverseBtn {
+			background: #222;
+			border: 1px solid white;
+			color: var(--text-secondary);
+			border-radius: 6px;
+			padding: 5px 10px;
+			cursor: pointer;
+			font-size: 1.1rem;
+			line-height: 1;
+			transition: all 0.2s ease;
+			flex-shrink: 0;
+			user-select: none;
+			-webkit-user-select: none;
+			margin-right: 20px;
+		}
+		#reverseBtn:hover {
+			border-color: var(--accent-color);
+			color: var(--accent-color);
+		}
+		#reverseBtn.active {
+			color: var(--accent-color);
+			border-color: var(--accent-color);
+			box-shadow: 0 0 10px rgba(255, 117, 24, 0.6), 0 0 20px rgba(255, 117, 24, 0.3);
+			animation: reverse-pulse 2s ease-in-out infinite;
+		}
+		@keyframes reverse-pulse {
+			0%, 100% { box-shadow: 0 0 10px rgba(255, 117, 24, 0.6), 0 0 20px rgba(255, 117, 24, 0.3); }
+			50%       { box-shadow: 0 0 16px rgba(255, 117, 24, 0.9), 0 0 32px rgba(255, 117, 24, 0.5); }
+		}
+
+		/* Lock overlay for sidebar + filter bar when reversed */
+		.reversed-locked {
+			pointer-events: none !important;
+			opacity: 0.35;
+			transition: opacity 0.2s;
+		}
+
+		/* ── CUSTOM TOOLTIP ─────────────────────────────────────────────── */
+		#rp-tooltip {
+			position: fixed;
+			z-index: 9999;
+			background: #1e1e1e;
+			border: 1px solid rgba(255, 255, 255, 0.25);
+			border-radius: 8px;
+			padding: 9px 13px;
+			max-width: 240px;
+			pointer-events: none;
+			opacity: 0;
+			transform: translateY(4px);
+			transition: opacity 0.15s ease, transform 0.15s ease;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+		}
+		#rp-tooltip.visible {
+			opacity: 1;
+			transform: translateY(0);
+		}
+		#rp-tooltip .tip-label {
+			font-size: 0.6rem;
+			font-weight: 800;
+			letter-spacing: 1.2px;
+			text-transform: uppercase;
+			color: var(--accent-color);
+			margin-bottom: 4px;
+		}
+		#rp-tooltip .tip-body {
+			font-size: 0.75rem;
+			font-weight: 400;
+			color: var(--text-primary);
+			line-height: 1.5;
+		}
 		
     </style>
 </head>
@@ -596,12 +641,12 @@
 
 <header>
     <h1>
-       <span class="title-text" onclick="location.reload()" style="cursor: pointer;">Raga Pravagam</span>
-        </h1>
+		<span class="title-text" onclick="location.reload()" style="cursor: pointer;">Raga Pravagam</span>
+    </h1>
 
     <div class="search-area" id="searchArea">
-        <span id="total-display-count" class="header-total">0 of 5,530 raagas displayed </span>
-        <span id="resultCount" style="font-size: 0.75rem; color: var(--text-secondary); margin-right: 10px;"></span>
+        <span id="total-display-count" class="header-total">0 of 5,530 displayed</span>
+        <button id="reverseBtn" title="Show all ragas NOT currently displayed" onclick="toggleReverse()">⇄</button>
         <div style="position: relative; display: flex; align-items: center;">
             <input type="text" id="searchInput" oninput="updateDisplay()" placeholder="Search raagam...">
             <span id="clearSearch" onclick="clearSearch()" style="position: absolute; right: 10px; color: #666; cursor: pointer; display: none; font-weight: bold; font-size: 1.1rem; user-select: none;">&times;</span>
@@ -639,7 +684,14 @@
     </div>
 </div>
 
+<div id="rp-tooltip">
+    <div class="tip-label" id="rp-tip-label"></div>
+    <div class="tip-body" id="rp-tip-body"></div>
+</div>
+
 <script>
+
+// ── STATE & CONSTANTS ──────────────────────────────────────────────────────
     // --- STATE ---
 	let ragas = [], uniqueMela = [], activeFilters = [], activeMKs = [], isExclusive = false;
     
@@ -650,6 +702,8 @@
 	window.showSource = false;
 	
 	window.vakraState = 0; // 0: OFF, 1: VAKRAM, 2: NON-VAKRAM
+
+    window.isReversed = false;
     
     // Audio State
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -700,6 +754,42 @@
 }).replace(/\u0323/g, ''); // Ensure combining dots are gone
 
     
+
+
+// ── TOOLTIP ENGINE ─────────────────────────────────────────────────────────
+const tooltip    = document.getElementById('rp-tooltip');
+const tipLabel   = document.getElementById('rp-tip-label');
+const tipBody    = document.getElementById('rp-tip-body');
+let   tipTimeout = null;
+
+function showTip(el, label, body) {
+    clearTimeout(tipTimeout);
+    tipLabel.textContent = label;
+    tipBody.textContent  = body;
+    tooltip.classList.remove('visible');
+    const rect = el.getBoundingClientRect();
+    const tipW = 240;
+    let left = rect.left + (rect.width / 2) - (tipW / 2);
+    let top  = rect.bottom + 8;
+    if (left < 8) left = 8;
+    if (left + tipW > window.innerWidth - 8) left = window.innerWidth - tipW - 8;
+    tooltip.style.left  = left + 'px';
+    tooltip.style.top   = top  + 'px';
+    tooltip.style.width = tipW + 'px';
+    tipTimeout = setTimeout(() => tooltip.classList.add('visible'), 120);
+}
+
+function hideTip() {
+    clearTimeout(tipTimeout);
+    tooltip.classList.remove('visible');
+}
+
+function attachTip(el, label, body) {
+    el.addEventListener('mouseenter', () => showTip(el, label, body));
+    el.addEventListener('mouseleave', hideTip);
+}
+
+// ── RESET ───────────────────────────────────────────────────────────────────
 function globalSoftReset(isHardReset = false) {
     activeFilters = [];
     activeMKs = [];
@@ -731,6 +821,21 @@ function globalSoftReset(isHardReset = false) {
         window.vakraState = 0;
         isExclusive = false;
 
+        // Reset reverse mode if active
+        if (window.isReversed) {
+            window.isReversed = false;
+            const btn = document.getElementById('reverseBtn');
+            if (btn) btn.classList.remove('active');
+            const sidebar = document.getElementById('sidebar');
+            const filterContainer = document.getElementById('filter-container');
+            const modeContainer = document.getElementById('mode-container');
+            const searchInput = document.getElementById('searchInput');
+            if (sidebar) sidebar.classList.remove('reversed-locked');
+            if (filterContainer) filterContainer.classList.remove('reversed-locked');
+            if (modeContainer) modeContainer.classList.remove('reversed-locked');
+            if (searchInput) { searchInput.classList.remove('reversed-locked'); searchInput.style.pointerEvents = ''; }
+        }
+
         // Reset Mode/Toggle Button UI
         document.querySelectorAll('.mode-btn, .exact-btn-style').forEach(btn => {
             btn.classList.remove('active');
@@ -751,6 +856,38 @@ function globalSoftReset(isHardReset = false) {
     updateDisplay();
 }
 
+
+// ── REVERSE ──────────────────────────────────────────────────────────────────
+function toggleReverse() {
+    window.isReversed = !window.isReversed;
+
+    const btn = document.getElementById('reverseBtn');
+    const sidebar = document.getElementById('sidebar');
+    const filterContainer = document.getElementById('filter-container');
+    const modeContainer = document.getElementById('mode-container');
+    const searchInput = document.getElementById('searchInput');
+    const clearBtn = document.getElementById('clearSearch');
+
+    if (window.isReversed) {
+        btn.classList.add('active');
+        sidebar.classList.add('reversed-locked');
+        filterContainer.classList.add('reversed-locked');
+        modeContainer.classList.add('reversed-locked');
+        searchInput.classList.add('reversed-locked');
+        searchInput.style.pointerEvents = 'none';
+        if (clearBtn) clearBtn.style.pointerEvents = 'none';
+    } else {
+        btn.classList.remove('active');
+        sidebar.classList.remove('reversed-locked');
+        filterContainer.classList.remove('reversed-locked');
+        modeContainer.classList.remove('reversed-locked');
+        searchInput.classList.remove('reversed-locked');
+        searchInput.style.pointerEvents = '';
+        if (clearBtn) clearBtn.style.pointerEvents = '';
+    }
+
+    updateDisplay();
+}
 function updateDisplay() {
     const tableBody = document.getElementById('janya-list');
     const searchInput = document.getElementById('searchInput');
@@ -944,21 +1081,38 @@ globallyFiltered = globallyFiltered.filter(r => {
 		// --- 5. Determine if we show the superscript ---
 		const showMelaNumber = activeFilters.length > 0 || searchTerm.length > 0 || activeMKs.length > 1;			
 		
+		// ── REVERSE: swap tableDisplayList for everything NOT in it ──────
+		let finalDisplayList;
+		if (window.isReversed) {
+			const displayedSet = new Set(tableDisplayList.map(r => r.name + '|' + r.mela));
+			finalDisplayList = ragas.filter(r => !displayedSet.has(r.name + '|' + r.mela));
+		} else {
+			finalDisplayList = tableDisplayList;
+		}
+
 		tableBody.innerHTML = ""; 
 			
-		tableDisplayList.forEach(r => {
+		finalDisplayList.forEach(r => {
 			const cleanMela = r.mela.replace(/^[\d\s.-]+/, '').trim().toUpperCase();
 			const isParent = r.name.trim().toUpperCase() === cleanMela;
 			renderRow(r, tableBody, isParent, showMelaNumber);
 		});
 		
-		// 6. Update the header count (MOVE THIS OUTSIDE THE LOOP)
+		// 6. Update the header count
 		const totalCountSpan = document.getElementById('total-display-count');
 		if (totalCountSpan) {
-		totalCountSpan.innerText = `${tableDisplayList.length.toLocaleString()} of ${ragas.length.toLocaleString()} raagas displayed`;
+			if (window.isReversed) {
+				totalCountSpan.innerText = `${finalDisplayList.length.toLocaleString()} of ${ragas.length.toLocaleString()}  excluded`;
+				totalCountSpan.style.color = 'var(--accent-color)';
+			} else {
+				totalCountSpan.innerText = `${finalDisplayList.length.toLocaleString()} of ${ragas.length.toLocaleString()}  displayed`;
+				totalCountSpan.style.color = '';
+			}
     }
 }
 
+
+// ── ROW RENDERER ────────────────────────────────────────────────────────────
 function renderRow(r, container, isParent, showMelaNumber) {
     const tr = document.createElement('tr');
     if (isParent) tr.style.background = "rgba(255, 117, 24, 0.08)";
@@ -1005,6 +1159,8 @@ function renderRow(r, container, isParent, showMelaNumber) {
     container.appendChild(tr);
 }
 
+
+// ── FILTER UI (buttons, modes, swara grid) ──────────────────────────────────
 function initFilters() {
     const swaraContainer = document.getElementById('filter-container');
     const modeContainer = document.getElementById('mode-container');
@@ -1026,12 +1182,13 @@ function initFilters() {
     };
     modeContainer.appendChild(aroAvaBtn);
 
+    attachTip(aroAvaBtn, 'Mirror', 'Shows only raagams where the Arohanam and Avarohanam are exact mirror images of each other.');
 // 2. VAKRAM Cycle Button
     const vakraBtn = document.createElement('div');
     vakraBtn.className = 'letter-btn mode-btn';
     vakraBtn.id = 'vakra-btn';
     vakraBtn.innerText = 'VAKRAM';
-      
+    
 	vakraBtn.onclick = () => {
     // Cycle: 0 (OFF) -> 1 (VAKRAM) -> 2 (RIJU)
     window.vakraState = (window.vakraState + 1) % 3;
@@ -1057,6 +1214,7 @@ function initFilters() {
 
     modeContainer.appendChild(vakraBtn);
     
+    attachTip(vakraBtn, 'Vakram / Riju', 'Cycles through three states: OFF → VAKRAM (non-linear note movement only) → RIJU (strictly linear movement only).');
     // --- SEPARATOR ---
 		const separator = document.createElement('div');
 		separator.style.cssText = `
@@ -1080,6 +1238,7 @@ function initFilters() {
     };
     modeContainer.appendChild(chakraBtn);
 
+    attachTip(chakraBtn, 'Chakra', 'Displays the Chakra group name alongside each raagam. Melakartas are organized into 12 Chakras of 6 raagams each.');
     // 4. SOURCE Toggle
     const sourceBtn = document.createElement('div');
     sourceBtn.className = 'letter-btn mode-btn';
@@ -1091,6 +1250,7 @@ function initFilters() {
     };
     modeContainer.appendChild(sourceBtn);
 
+    attachTip(sourceBtn, 'Source', 'Shows the reference source or book from which each raagam was documented.');
     // --- EXACT MATCH Button (In Swara Container) ---
     const exactBtn = document.createElement('div');
     exactBtn.className = 'letter-btn exact-btn-style';
@@ -1105,6 +1265,7 @@ function initFilters() {
     };
     swaraContainer.appendChild(exactBtn);
 
+    attachTip(exactBtn, 'Exact Match', 'Filters raagams whose note set matches your selection exactly — no more, no fewer swaras.');
     // --- Swara Buttons ---
     const notes = ['S','R1','R2','R3','G1','G2','G3','M1','M2','P','D1','D2','D3','N1','N2','N3'];
     notes.forEach(s => {
@@ -1136,8 +1297,11 @@ function initFilters() {
 };
 
     swaraContainer.appendChild(rb);
+    attachTip(rb, 'Reset', 'Single click: clear filters and search. Double-click: full hard reset including all mode toggles.');
 }
 
+
+// ── DATA LOADER ─────────────────────────────────────────────────────────────
 function loadData() {
     if (typeof rawData === 'undefined') return;
     ragas = rawData.split('\n').filter(l => l.includes('\t')).map(l => {
@@ -1158,6 +1322,12 @@ function loadData() {
     
     uniqueMela = [...new Set(ragas.map(r => r.mela))].filter(Boolean);
     initFilters();
+
+    // Attach tooltips to static elements now that DOM + engine are ready
+    const sidebarHdr = document.getElementById('sidebar-header');
+    if (sidebarHdr) attachTip(sidebarHdr, 'Melakartas', 'The 72 parent scales of Carnatic music. Click one or more to browse their Janya raagams. Click again to deselect.');
+    const revBtn = document.getElementById('reverseBtn');
+    if (revBtn) attachTip(revBtn, 'Reverse View', 'Shows only the raagams NOT in the current display. All filters are locked — scroll to explore the excluded set.');
     
     const list = document.getElementById('mk-list');
     list.innerHTML = ""; 
@@ -1183,6 +1353,8 @@ function loadData() {
 }
 
     // --- AUDIO ---
+
+// ── AUDIO ENGINE ────────────────────────────────────────────────────────────
 function stopAllPlayback() {
         currentGeneration++;
         activeTimers.forEach(t => clearTimeout(t));
@@ -1312,6 +1484,8 @@ function playNote(swara, duration, isFinalNote) {
     }
 
     // --- HELPERS ---
+
+// ── HELPERS (formatScale, clearSearch, isVakra) ─────────────────────────────
 function formatScale(s) {
     // 1. Updated patternStr to include the new dotted characters
     // We include ṘĠṂṀṖ (dots above) and P̣ḌṆ (dots below) + your existing Ṡ (\u1E60)
@@ -1335,12 +1509,6 @@ function clearSearch() {
     input.value = "";
     document.getElementById('clearSearch').style.display = "none";
     updateDisplay();
-}
-
-function handleSearch(event) {
-    if (event.key === "Enter") {
-        updateDisplay();
-    }
 }
 
 function isVakra(aroNotes, avaNotes) {
@@ -6895,5 +7063,3 @@ function isVakra(aroNotes, avaNotes) {
 </script>
 </body>
 </html>
-
-
